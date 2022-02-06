@@ -3,7 +3,7 @@ def p_program(p):
     program : VAR declarations BEGIN commands END
             | BEGIN commands END
     '''
-    print("aaaaaaaaaaaa")
+    print("program")
 
 def p_declarations(p):
     '''
@@ -12,14 +12,14 @@ def p_declarations(p):
                  | pidentifier
                  | pidentifier LEFT_SBRACKET num COLON num RIGHT_SBRACKET
     '''
-    print("bbbbbbbbbbb")
+    print("declarations")
 
 def p_commands(p):
     '''
     commands     : commands command
                  | command
     '''
-    print("ccccccccccccc")
+    print("commands")
 
 def p_command(p):
     '''
@@ -33,7 +33,7 @@ def p_command(p):
                  | READ identifier SEMICOLON
                  | WRITE value SEMICOLON
     '''
-    print("dddddddddddd")
+    print("command")
 
 def p_expression(p):
     '''
@@ -44,7 +44,7 @@ def p_expression(p):
                  | value DIV value
                  | value MOD value
     '''
-    print("eeeeeeeeeee")
+    print("expression")
 
 def p_condition(p):
     '''
@@ -55,14 +55,14 @@ def p_condition(p):
                  | value LEQ value
                  | value GEQ value
     '''
-    print("ffffffffffff")
+    print("condition")
 
 def p_value(p):
     '''
     value        : num
                  | identifier
     '''
-    print("gggggggggggggg")
+    print("value")
 
 def p_identifier(p):
     '''
@@ -70,7 +70,7 @@ def p_identifier(p):
                  | pidentifier LEFT_SBRACKET pidentifier RIGHT_SBRACKET
                  | pidentifier LEFT_SBRACKET num RIGHT_SBRACKET
     '''
-    print("hhhhhhhhhhhhhh")
+    print("identifier")
 
 def p_error(p):
     print("eeeeeeeeeeeeeeee")
