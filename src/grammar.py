@@ -1,14 +1,18 @@
 import numpy as np
+from machine_operations import *
+import ply.yacc as yacc
+
 
 variables = {}
 current_identifier = None
+current_expression = 0
 output = ""
 
 def p_program(p):
     '''program : VAR declarations BEGIN commands END
             | BEGIN commands END'''
     global output
-    output = output + "HALT"
+    output = add_to_output(output, "HALT")
     print(output)
 
 
@@ -35,18 +39,23 @@ def p_commands(p):
     commands     : commands command
                  | command
     '''
-    print("commands: ", end = '')
-    print(p[0])
+    
 
 def p_assign(p):
     '''
     command      : identifier ASSIGN expression SEMICOLON 
     '''  
     if current_identifier in variables.keys():
-        variables[p[1]] = p[3]
+        global output
+        output = set_register(output, current_expression)
         print("przypisano wartość do zmiennej")    
     else:
         print(p[1])
+
+def p_write(p):
+    '''command      : WRITE value SEMICOLON'''
+    global output
+    output = read_register(output)
 
 def p_command(p):
     '''
@@ -57,11 +66,7 @@ def p_command(p):
                  | FOR pidentifier FROM value TO value DO commands ENDFOR
                  | FOR pidentifier FROM value DOWNTO value DO commands ENDFOR
                  | READ identifier SEMICOLON
-                 | WRITE value SEMICOLON
-    '''
-
-    print("command: ", end = '')
-    print(p[0])
+    '''    
     
 def p_expression(p):
     '''
@@ -72,8 +77,7 @@ def p_expression(p):
                  | value DIV value
                  | value MOD value
     '''
-    print("expression: ", end = '')
-    print(p[0])
+    
     
 def p_condition(p):
     '''
@@ -84,16 +88,15 @@ def p_condition(p):
                  | value LEQ value
                  | value GEQ value
     '''
-    print("condition: ", end = '')
-    print(p[0])
+    
     
 def p_value(p):
     '''
     value        : num
                  | identifier
     '''
-    print("value: ", end = '')
-    print(p[0])
+    global current_expression
+    current_expression = p[1]    
     
 
 def p_identifier(p):
@@ -106,10 +109,7 @@ def p_identifier(p):
 
     if len(p) == 2:
         current_identifier = p[1]
-    
-
-    print("identifier: ", end = '')
-    print(p[0])
+        
     
 def p_error(p):
     print("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")

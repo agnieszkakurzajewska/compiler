@@ -1,3 +1,10 @@
-GET
+RESET a
+RESET b
+INC a
+INC a
+INC a
+STORE b
+RESET b
+LOAD b
 PUT
 HALT
