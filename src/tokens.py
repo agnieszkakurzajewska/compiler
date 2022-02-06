@@ -3,7 +3,6 @@ tokens = (
 'BEGIN',
 'COLON',
 'COMMA',
-'COMMENT',
 'DIV',
 'DO',
 'DOWNTO',
@@ -21,7 +20,6 @@ tokens = (
 'LE',
 'LEQ',
 'LEFT_SBRACKET',
-'LPAREN',
 'MINUS',
 'MOD',
 'NEQ',
@@ -29,7 +27,6 @@ tokens = (
 'READ',
 'REPEAT',
 'RIGHT_SBRACKET',
-'RPAREN',
 'SEMICOLON',
 'THEN',
 'TIMES',
@@ -64,7 +61,6 @@ t_IF                = r'IF'
 t_LE                = r'LE'
 t_LEQ               = r'LEQ'
 t_LEFT_SBRACKET     = r'\['
-t_LPAREN            = r'\('
 t_MINUS             = r'-'
 t_MOD               = r'MOD'
 t_NEQ               = r'NEQ'
@@ -72,7 +68,6 @@ t_PLUS              = r'\+'
 t_READ              = r'READ'
 t_REPEAT            = r'REPEAT'
 t_RIGHT_SBRACKET    = r'\]'
-t_RPAREN            = r'\)'
 t_SEMICOLON         = r';'
 t_THEN              = r'THEN'
 t_TIMES             = r'\*'

@@ -1,7 +1,5 @@
 import numpy as np
 from machine_operations import *
-import ply.yacc as yacc
-
 
 variables = {}
 current_identifier = None
@@ -15,7 +13,6 @@ def p_program(p):
     output = add_to_output(output, "HALT")
     print(output)
 
-
 def p_new_int_declaration(p):
     '''declarations : pidentifier'''
     variables[p[1]] = None
@@ -24,7 +21,6 @@ def p_new_array_declaration(p):
     '''declarations : pidentifier LEFT_SBRACKET num COLON num RIGHT_SBRACKET'''
     arr_dict =  {"size": p[5]-p[3]+1, "first_index": p[3]}
     variables[p[1]] = arr_dict
-
 
 def p_declarations(p):
     '''
@@ -48,7 +44,6 @@ def p_assign(p):
     if current_identifier in variables.keys():
         global output
         output = set_register(output, current_expression)
-        print("przypisano wartość do zmiennej")    
     else:
         print(p[1])
 
@@ -89,7 +84,6 @@ def p_condition(p):
                  | value GEQ value
     '''
     
-    
 def p_value(p):
     '''
     value        : num
@@ -97,7 +91,6 @@ def p_value(p):
     '''
     global current_expression
     current_expression = p[1]    
-    
 
 def p_identifier(p):
     '''
@@ -108,8 +101,7 @@ def p_identifier(p):
     global current_identifier
 
     if len(p) == 2:
-        current_identifier = p[1]
-        
+        current_identifier = p[1]  
     
 def p_error(p):
     print("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
