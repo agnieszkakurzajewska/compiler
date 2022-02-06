@@ -5,12 +5,17 @@ from grammar import *
 from tokens import *
 
 
+# Regular expression rules for simple tokens
+
+
 t_pidentifier = r'[_a-z]+'
+
 
 def t_num(t):
     r'[-]?[0-9]+'
     t.value = int(t.value)    
     return t
+
 def t_newline(t):
     r'\n+'
     t.lexer.lineno += len(t.value)
@@ -23,13 +28,8 @@ def t_error(t):
     print("Illegal character '%s'" % t.value[0])
     t.lexer.skip(1)
 
-
-
-
-
 # Build the lexer
 lexer = lex.lex()
-
  
   # Test it out
 data = '''

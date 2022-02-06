@@ -1,105 +1,37 @@
-# # from sly import Lexer
+from tokens import *
+import ply.lex as lex
+
+class Lexer:
 
 
-# class CompilerLexer(Lexer):
-#     errored = False
-#     tokens = {
-#         ASSIGN,
-#         SEMICOLON,
-#         COLON,
-#         COMMA,
-#         PIDENTIFIER,
-#         NUM,
-#         DECLARE,
-#         BEGIN,
-#         END,
-#         PAR_OPEN,
-#         PAR_CLOSE,
-#         IF,
-#         THEN,
-#         ELSE,
-#         ENDIF,
-#         WHILE,
-#         DO,
-#         ENDWHILE,
-#         REPEAT,
-#         UNTIL,
-#         FOR,
-#         FROM,
-#         TO,
-#         DOWNTO,
-#         ENDFOR,
-#         READ,
-#         WRITE,
-#         PLUS,
-#         MINUS,
-#         MULTIPLY,
-#         DIVIDE,
-#         MOD,
-#         EQ,
-#         INEQ,
-#         LS,
-#         GR,
-#         LEQ,
-#         GEQ,
-#     }
 
-#     ignore = ' \t'
+    def __init__(self):
 
-#     @_(r'\[[^\[]*\]')
-#     def ignore_comment(self, t):
-#         self.lineno += t.value.count('\n')
+        data = '''
+        VAR n BEGIN
+        n ASSIGN 3;
+        WRITE n;
+        END
+        '''
 
-#     @_(r'\n+')
-#     def ignore_newline(self, t):
-#         self.lineno += t.value.count('\n')
+        lex.lex()    
+        lex.input(data)
 
-#     @_(r'[0-9]+')
-#     def NUM(self, t):
-#         t.value = int(t.value)
-#         return t
 
-#     PIDENTIFIER = r'[_a-z]+'
+    t_pidentifier = r'[_a-z]+'
 
-#     ASSIGN = r':='
-#     INEQ = r'!='
-#     LEQ = r'<='
-#     GEQ = r'>='
-#     EQ = r'='
-#     MOD = r'%'
-#     LS = r'<'
-#     GR = r'>'
-#     PLUS = r'\+'
-#     MINUS = r'\-'
-#     MULTIPLY = r'\*'
-#     DIVIDE = r'\/'
+    def t_num(t):
+        r'[-]?[0-9]+'
+        t.value = int(t.value)    
+        return t
+    def t_newline(t):
+        r'\n+'
+        t.lexer.lineno += len(t.value)
 
-#     SEMICOLON = r';'
-#     COLON = r':'
-#     COMMA = r','
-#     PAR_OPEN = r'\('
-#     PAR_CLOSE = r'\)'
+    # A string containing ignored characters (spaces and tabs)
+    t_ignore  = ' \t'
 
-#     DECLARE = r'DECLARE'
-#     BEGIN = r'BEGIN'
-#     ENDWHILE = r'ENDWHILE'
-#     WHILE = r'WHILE'
-#     ENDIF = r'ENDIF'
-#     IF = r'IF'
-#     THEN = r'THEN'
-#     ELSE = r'ELSE'
-#     REPEAT = r'REPEAT'
-#     UNTIL = r'UNTIL'
-#     DOWNTO = r'DOWNTO'
-#     ENDFOR = r'ENDFOR'
-#     FOR = r'FOR'
-#     FROM = r'FROM'
-#     END = r'END'
-#     DO = r'DO'
-#     TO = r'TO'
-#     READ = r'READ'
-#     WRITE = r'WRITE'
-
-#     def error(self, t):
-#         print(f'Lexer: Error in line {self.lineno}: bad character {t.value[0]}')
-#         self.index += 1
+    # Error handling rule
+    def t_error(t):
+        print("Illegal character '%s'" % t.value[0])
+        t.lexer.skip(1)
