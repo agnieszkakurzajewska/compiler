@@ -1,56 +1,47 @@
-import numpy as np
+import settings
 from machine_operations import *
 
-variables = {}
-current_identifier = None
-current_expression = 0
-output = ""
-
+#done
 def p_program(p):
     '''program : VAR declarations BEGIN commands END
             | BEGIN commands END'''
-    global output
-    output = add_to_output(output, "HALT")
-    print(output)
+    add_to_output("HALT")
+
 
 def p_new_int_declaration(p):
     '''declarations : pidentifier'''
-    variables[p[1]] = None
+    add_variable(p[1])
 
 def p_new_array_declaration(p):
     '''declarations : pidentifier LEFT_SBRACKET num COLON num RIGHT_SBRACKET'''
     arr_dict =  {"size": p[5]-p[3]+1, "first_index": p[3]}
-    variables[p[1]] = arr_dict
+    print("b")
+
 
 def p_declarations(p):
     '''
     declarations : declarations COMMA pidentifier
                  | declarations COMMA pidentifier LEFT_SBRACKET num COLON num RIGHT_SBRACKET
     '''
-    print("declarations: ", end = '')
-    print(p[1])
-    
+    print("c")
+
 def p_commands(p):
     '''
     commands     : commands command
                  | command
     '''
-    
+    print("d")
+
 
 def p_assign(p):
     '''
     command      : identifier ASSIGN expression SEMICOLON 
     '''  
-    if current_identifier in variables.keys():
-        global output
-        output = set_register(output, current_expression)
-    else:
-        print(p[1])
+    
 
 def p_write(p):
     '''command      : WRITE value SEMICOLON'''
-    global output
-    output = read_register(output)
+    print("uuuu")
 
 def p_command(p):
     '''
@@ -62,7 +53,8 @@ def p_command(p):
                  | FOR pidentifier FROM value DOWNTO value DO commands ENDFOR
                  | READ identifier SEMICOLON
     '''    
-    
+    print("f")
+
 def p_expression(p):
     '''
     expression   : value
@@ -72,6 +64,7 @@ def p_expression(p):
                  | value DIV value
                  | value MOD value
     '''
+print("g")
     
     
 def p_condition(p):
@@ -83,14 +76,14 @@ def p_condition(p):
                  | value LEQ value
                  | value GEQ value
     '''
-    
+    print("h")   
 def p_value(p):
     '''
     value        : num
                  | identifier
-    '''
-    global current_expression
-    current_expression = p[1]    
+    ''' 
+    add_expression(p[1])
+    print("i")   
 
 def p_identifier(p):
     '''
@@ -98,11 +91,8 @@ def p_identifier(p):
                  | pidentifier LEFT_SBRACKET pidentifier RIGHT_SBRACKET
                  | pidentifier LEFT_SBRACKET num RIGHT_SBRACKET
     '''
-    global current_identifier
+    print("j")   
 
-    if len(p) == 2:
-        current_identifier = p[1]  
-    
 def p_error(p):
     print("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
         

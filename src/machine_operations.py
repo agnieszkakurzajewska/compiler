@@ -1,31 +1,54 @@
-from re import A
+from sys import path_importer_cache
+import settings
 
-memory_iterator = 0
+# Store x oznacza zapisz to co jest w rejestrze a do 
+# komórki pamięci o numerze znajdującym się w rejestrze x
 
-def read_register(output):
+# done
+def add_to_output(s):
+    settings.output = settings.output + "\n" + s
 
-    output = add_to_output(output, "RESET b")
-    output = add_to_output(output, "LOAD b")
-    return add_to_output(output, "PUT")
+def read_register(value):
+    add_to_output("RESET b")
+    add_to_output("LOAD b")
+    add_to_output("PUT")
 
+def add_variable(variable):
+    settings.variables.append(variable)
 
 # TODO zoptymalizwoac zwiekszanie
-def set_register(output, value):
-    # Store x oznacza zapisz to co jest w rejestrze a do 
-    # komórki pamięci o numerze znajdującym się w rejestrze x
- 
-    output = add_to_output(output, "RESET a")
-    output = add_to_output(output, "RESET b")
+def set_registry_value(value, registry):
+    add_to_output("RESET " + registry)
+    for _ in range(value):
+        add_to_output("INC " + registry)
 
-    for a in range(value):
-        output = add_to_output(output, "INC a")
 
-    for b in range(memory_iterator):
-        output = add_to_output(output, "INC b")
 
-    output = add_to_output(output, "STORE b")
+#done
+def add_expression(exp):
+    settings.expressions.append(exp)
 
-    return output
+#done
+def set_memory(value):
+    free_r = find_free_registry()
+    free_m = find_free_memory()
+    set_registry_value(value, "a")
+    set_registry_value(free_m, free_r)
+    add_to_output("STORE "+str(free_r))
 
-def add_to_output(output, s):
-    return output + "\n" + s
+#done
+def find_free_memory():
+    i = 0
+    while True:
+        if not i in settings.memory:
+            return i
+        else:
+            i = i + 1
+
+# done
+def find_free_registry():
+    for r in settings.registries:
+        if settings.registries[r]["free"]:
+            return r
+
+
