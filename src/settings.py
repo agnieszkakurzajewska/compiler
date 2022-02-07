@@ -1,6 +1,6 @@
 def init():
     global registries
-    global memory
+    global memory_in_usage
     global names
     global values
     global full_variables
@@ -18,9 +18,10 @@ def init():
         'h': {'name': None, 'value': 0, 'free': True},
         }
 
-    memory = {}
+    memory_in_usage = {}
     names = []
     values = []
     full_variables = []
     output = ""
     next_empty_p_iterator = 0
+    

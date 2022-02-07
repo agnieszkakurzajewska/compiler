@@ -42,7 +42,7 @@ def p_assign(p):
 
 def p_write(p):
     '''command      : WRITE value SEMICOLON'''
-    print("uuuu")
+    read_memory()
 
 def p_command(p):
     '''
