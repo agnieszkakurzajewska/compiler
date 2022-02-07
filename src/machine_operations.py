@@ -16,14 +16,6 @@ def read_memory(): #write
     add_to_output("PUT")
     set_registry_free(r)
 
-# def read_from_name(name):
-#     memory = search_place_in_memory_using_name(name)
-#     free_r = find_free_registry()
-#     set_registry_value(memory, free_r)
-#     add_to_output("LOAD " + free_r)
-#     add_to_output("PUT")
-#     settings.registries[free_r]["free"] = True
-
 #ok
 def search_place_in_memory_using_name(name):
     for f in settings.full_variables:
@@ -63,19 +55,20 @@ def find_free_memory():
             i = i + 1
 
 def set_memory():
-
+# Store x oznacza zapisz to co jest w rejestrze a do komórki
+#  pamięci o numerze znajdującym się w rejestrze x
     r = find_free_registry()
     free_m = find_free_memory()
     set_registry_value(settings.values[-1], "a")
     set_registry_value(free_m, r)
     add_to_output("STORE "+str(r))
-    add_new_full_variable(settings.names[-1], settings.values[-1], free_m)
+    add_new_full_variable(settings.names[-1], free_m)
     settings.values.pop()
     settings.names.pop()
     set_registry_free(r)
 #ok
-def add_new_full_variable(name, value, free_m):
-    settings.full_variables.append((name, value, free_m))
+def add_new_full_variable(name, free_m):
+    settings.full_variables.append((name, free_m))
 
 #ok
 def find_free_registry():
