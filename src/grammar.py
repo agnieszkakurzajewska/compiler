@@ -56,8 +56,7 @@ def p_command(p):
     print("f")
 
 def p_read(p):
-    '''    command      : READ identifier SEMICOLON'''   
-    read_from_name(p[2])
+    '''    command      : READ identifier SEMICOLON'''
 
 def p_expression(p):
     '''

@@ -7,6 +7,9 @@ def t_error(t):
     print("ERRORRRRRRRRRRRRRRRRRRRRR")
     t.lexer.skip(1)
 
-t_ignore  = ' \t\n'
+def t_ignore_comment(t):
+    r'(\((.|\n)*?\))'
+
+t_ignore  = '[\n | \t | ]'
 
 t_pidentifier = r'[_a-z]+'
