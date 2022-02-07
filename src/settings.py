@@ -1,24 +1,26 @@
 def init():
     global registries
     global memory
-    global variables
-    global expressions
+    global names
+    global values
+    global full_variables
     global output
     global next_empty_p_iterator
 
     registries = {
-        'a': {'val_name': None, 'number': 0, 'free': True},
-        'b': {'val_name': None, 'number': 0, 'free': True},
-        'c': {'val_name': None, 'number': 0, 'free': True},
-        'd': {'val_name': None, 'number': 0, 'free': True},
-        'e': {'val_name': None, 'number': 0, 'free': True},
-        'f': {'val_name': None, 'number': 0, 'free': True},
-        'g': {'val_name': None, 'number': 0, 'free': True},
-        'h': {'val_name': None, 'number': 0, 'free': True},
+        'a': {'name': None, 'value': 0, 'free': True},
+        'b': {'name': None, 'value': 0, 'free': True},
+        'c': {'name': None, 'value': 0, 'free': True},
+        'd': {'name': None, 'value': 0, 'free': True},
+        'e': {'name': None, 'value': 0, 'free': True},
+        'f': {'name': None, 'value': 0, 'free': True},
+        'g': {'name': None, 'value': 0, 'free': True},
+        'h': {'name': None, 'value': 0, 'free': True},
         }
 
     memory = {}
-    variables = []
-    expressions = []
+    names = []
+    values = []
+    full_variables = []
     output = ""
     next_empty_p_iterator = 0

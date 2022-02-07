@@ -10,7 +10,8 @@ def p_program(p):
 
 def p_new_int_declaration(p):
     '''declarations : pidentifier'''
-    add_variable(p[1])
+    print("dodaje zmienna")
+    add_name(p[1])
 
 def p_new_array_declaration(p):
     '''declarations : pidentifier LEFT_SBRACKET num COLON num RIGHT_SBRACKET'''
@@ -30,14 +31,14 @@ def p_commands(p):
     commands     : commands command
                  | command
     '''
-    print("d")
 
 
 def p_assign(p):
     '''
     command      : identifier ASSIGN expression SEMICOLON 
     '''  
-    
+    print("przypisuje")
+    set_memory()
 
 def p_write(p):
     '''command      : WRITE value SEMICOLON'''
@@ -51,9 +52,12 @@ def p_command(p):
                  | REPEAT commands UNTIL condition SEMICOLON
                  | FOR pidentifier FROM value TO value DO commands ENDFOR
                  | FOR pidentifier FROM value DOWNTO value DO commands ENDFOR
-                 | READ identifier SEMICOLON
     '''    
     print("f")
+
+def p_read(p):
+    '''    command      : READ identifier SEMICOLON'''   
+    read_from_name(p[2])
 
 def p_expression(p):
     '''
@@ -64,7 +68,6 @@ def p_expression(p):
                  | value DIV value
                  | value MOD value
     '''
-print("g")
     
     
 def p_condition(p):
@@ -77,13 +80,15 @@ def p_condition(p):
                  | value GEQ value
     '''
     print("h")   
+
+
 def p_value(p):
-    '''
-    value        : num
-                 | identifier
-    ''' 
-    add_expression(p[1])
-    print("i")   
+    '''value        : identifier'''
+
+def p_num(p):
+    '''value        : num'''
+    print("dodaję numer")
+    add_value(p[1])
 
 def p_identifier(p):
     '''
@@ -91,7 +96,12 @@ def p_identifier(p):
                  | pidentifier LEFT_SBRACKET pidentifier RIGHT_SBRACKET
                  | pidentifier LEFT_SBRACKET num RIGHT_SBRACKET
     '''
-    print("j")   
+    if len(p) == 5:
+        var = str(p[1])+"]"+str(p[3])+"]"
+    else:
+        var = p[1]
+    print("dodaję nazwe zmiennej")
+    print(add_name(var))   
 
 def p_error(p):
     print("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")

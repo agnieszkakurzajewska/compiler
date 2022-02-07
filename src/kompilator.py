@@ -17,4 +17,7 @@ parser = yacc.yacc()
 parser.parse(input_text, lexer=lexer)
 print(settings.output)
 
-print(find_free_memory())
+print(settings.names)
+print("aaa")
+print(settings.values)
+
