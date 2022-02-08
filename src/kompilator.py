@@ -11,6 +11,7 @@ settings.init()
 input = open(sys.argv[1], "r");
 input_text = input.read()
 
+print("\n\n")
 lexer = lex.lex()
 
 # data = '''
@@ -34,8 +35,8 @@ lexer = lex.lex()
 parser = yacc.yacc()
 
 parser.parse(input_text, lexer=lexer)
-print(settings.output)
 
 output = open(sys.argv[2], "w")
 output.write(settings.output)
 output.close()
+print(settings.output)

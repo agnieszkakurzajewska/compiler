@@ -1,17 +1,20 @@
 import settings
 from machine_operations import *
+from registries_functions import *
+from additional_functions import *
 
 #done
 def p_program(p):
     '''program : VAR declarations BEGIN commands END
             | BEGIN commands END'''
     add_to_output("HALT")
+    print("a")
 
 
 def p_new_int_declaration(p):
     '''declarations : pidentifier'''
-    print("dodaje zmienna")
-    add_name(p[1])
+    # print("1dodaje nazwe zmiennej na stos: "+str(p[1]))
+    # add_declared_variable(str(p[1]))
 
 def p_new_array_declaration(p):
     '''declarations : pidentifier LEFT_SBRACKET num COLON num RIGHT_SBRACKET'''
@@ -24,14 +27,14 @@ def p_declarations(p):
     declarations : declarations COMMA pidentifier
                  | declarations COMMA pidentifier LEFT_SBRACKET num COLON num RIGHT_SBRACKET
     '''
-    print("c")
+    # print("2dodaje nazwe zmiennej na stos: "+str(p[3]))
+    # add_declared_variable(str(p[3]))
 
 def p_commands(p):
     '''
     commands     : commands command
                  | command
     '''
-
 
 def p_assign(p):
     '''
@@ -42,7 +45,9 @@ def p_assign(p):
 
 def p_write(p):
     '''command      : WRITE value SEMICOLON'''
-    read_memory()
+    write_output()
+    print("wypisuję output")
+
 
 def p_command(p):
     '''
@@ -53,10 +58,12 @@ def p_command(p):
                  | FOR pidentifier FROM value TO value DO commands ENDFOR
                  | FOR pidentifier FROM value DOWNTO value DO commands ENDFOR
     '''    
-    print("f")
+    print("e")
 
 def p_read(p):
     '''    command      : READ identifier SEMICOLON'''
+    read_input()
+    print("zczytuję input")
 
 def p_expression(p):
     '''
@@ -64,10 +71,14 @@ def p_expression(p):
                  | value PLUS value
                  | value MINUS value
                  | value TIMES value
-                 | value DIV value
                  | value MOD value
     '''
-    
+    print("f")
+
+
+def p_divide(p):
+    '''    expression   : value DIV value'''
+    print("dziele")
     
 def p_condition(p):
     '''
@@ -78,16 +89,17 @@ def p_condition(p):
                  | value LEQ value
                  | value GEQ value
     '''
-    print("h")   
+    print("g")   
 
 
 def p_value(p):
     '''value        : identifier'''
+    print("h")
 
 def p_num(p):
     '''value        : num'''
     print("dodaję numer")
-    add_value(p[1])
+    add_variable_to_stack(str(p[1]))
 
 def p_identifier(p):
     '''
@@ -99,9 +111,9 @@ def p_identifier(p):
         var = str(p[1])+"]"+str(p[3])+"]"
     else:
         var = p[1]
-    print("dodaję nazwe zmiennej")
-    print(add_name(var))   
+    print("3dodaję nazwe zmiennej na stos: "+str(var))
+    add_variable_to_stack(str(var))
 
 def p_error(p):
-    print("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
+    print("----------------------------------error----------------------------------")
         

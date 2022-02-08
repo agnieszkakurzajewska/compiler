@@ -4,7 +4,7 @@ def t_num(t):
     return t
 
 def t_error(t):
-    print("ERRORRRRRRRRRRRRRRRRRRRRR")
+    print("----------------------------------error----------------------------------")
     t.lexer.skip(1)
 
 def t_ignore_comment(t):

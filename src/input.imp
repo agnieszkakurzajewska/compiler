@@ -1,7 +1,7 @@
 ( div-mod.imp 
   1 0
   1 0 0 0
-)
+
 VAR
 	a, b, c
 BEGIN
@@ -16,4 +16,9 @@ BEGIN
 	c ASSIGN a MOD b;
 	WRITE c;
 END
-
+)
+VAR a
+BEGIN
+    READ a;
+    WRITE a;
+END
