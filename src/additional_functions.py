@@ -11,8 +11,3 @@ def get_stack_top():
     settings.variables_stack.pop()
     return top
 
-def search_variable_using_name(name):
-    for v in settings.variables:
-        if v[0] == name:
-            return v[1]
-    return -1

@@ -16,7 +16,7 @@ def init():
         'h': {'value': 0, 'free': True},
         }
     
-    variables = [] #pairs: (name, memory_place)
+    variables = [] #pairs: (name, place, czy_wbite_do_pamieci_za_pomoca_store)
     memory_in_usage = {}
     variables_stack = []
     output = ""    

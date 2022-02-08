@@ -1,4 +1,10 @@
+(
 VAR n BEGIN 
 n ASSIGN 3;
 WRITE n;
+END
+)
+BEGIN
+READ a;
+WRITE a;
 END

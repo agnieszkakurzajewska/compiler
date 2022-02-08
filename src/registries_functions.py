@@ -1,19 +1,41 @@
 import settings
 from machine_operations import *
-from additional_functions import *
 
+def is_variable_empty(name): #zwraca true jesli do zmiennej nie jest jeszcze przypisana zadna wartosc
+    for v in settings.variables:
+        if v[0] == name:
+            return False
+    return True
+
+def return_number(value):
+    if isinstance(value, int):
+        return int(value)
+    else:
+        return int(get_variables_value_using_name(value))
+
+def get_variables_value_using_name(name):
+    for v in settings.variables:
+        if v[0] == name:
+            return v[1]
+    return False
+        
+
+
+def get_register_which_contains_value(name):
+    for r in settings.registries:
+        if str(settings.registries[r]['value']) == name:
+            return r
+        else:
+            return False
 
 def add_to_output(s):
     settings.output = settings.output + "\n" + s
 
 # TODO zoptymalizwoac zwiekszanie
-def set_registry_value(value, registry):
+def set_registry_value(registry, value):
+    value = return_number(value) #zwraca zmienna albo jej wartosc
     add_to_output("RESET " + registry)
-    print(settings.registries[registry]['value'])
-    print("ioioioioio")
-    print(value)
-    # value = value - act_val
-    for _ in range(int(value)):
+    for _ in range(value):
         add_to_output("INC " + registry)
 
 
@@ -36,15 +58,10 @@ def get__using_var_name(var_name):
 
 #ok
 def search_place_in_memory_using_name(name):
-    for f in settings.full_variables:
+    for f in settings.variables:
         if name == f[0]:   
             return f[1]
 
-#ok
-def search_name_using_place_in_memory(place):
-    for f in settings.full_variables:
-        if place == f[1]:   
-            return f[0]
 
 #ok
 def find_free_memory():
@@ -54,6 +71,16 @@ def find_free_memory():
             return i
         else:
             i = i + 1
+
+def get_stack_top():
+    top = settings.variables_stack[-1]
+    settings.variables_stack.pop()
+    return top
+
+
+
+def add_to_output(s):
+    settings.output = settings.output + "\n" + s
 
 def get_stack_top():
     top = settings.variables_stack[-1]

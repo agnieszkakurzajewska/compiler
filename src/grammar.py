@@ -1,7 +1,6 @@
 import settings
 from machine_operations import *
 from registries_functions import *
-from additional_functions import *
 
 #done
 def p_program(p):
@@ -41,7 +40,7 @@ def p_assign(p):
     command      : identifier ASSIGN expression SEMICOLON 
     '''  
     print("przypisuje")
-    set_memory()
+    assign()
 
 def p_write(p):
     '''command      : WRITE value SEMICOLON'''
@@ -68,13 +67,15 @@ def p_read(p):
 def p_expression(p):
     '''
     expression   : value
-                 | value PLUS value
                  | value MINUS value
                  | value TIMES value
                  | value MOD value
     '''
     print("f")
 
+def p_add(p):
+    '''    expression   : value PLUS value'''
+    add()
 
 def p_divide(p):
     '''    expression   : value DIV value'''
