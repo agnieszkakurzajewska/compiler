@@ -1,24 +1,4 @@
-( div-mod.imp 
-  1 0
-  1 0 0 0
-
-VAR
-	a, b, c
-BEGIN
-	READ a;
-	READ b;
-	c ASSIGN a DIV a;
-	WRITE c;
-	c ASSIGN a DIV b;
-	WRITE c;
-	c ASSIGN a MOD a;
-	WRITE c;
-	c ASSIGN a MOD b;
-	WRITE c;
-END
-)
-VAR a
-BEGIN
-    READ a;
-    WRITE a;
+VAR n BEGIN 
+n ASSIGN 3;
+WRITE n;
 END

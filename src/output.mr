@@ -1,5 +1,8 @@
 
-GET
+RESET a
+INC a
+INC a
+INC a
 RESET b
 STORE b
 RESET b

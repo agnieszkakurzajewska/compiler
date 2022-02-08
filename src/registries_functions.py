@@ -9,7 +9,10 @@ def add_to_output(s):
 # TODO zoptymalizwoac zwiekszanie
 def set_registry_value(value, registry):
     add_to_output("RESET " + registry)
-    value = value - int(settings.registries[registry]['value'])
+    print(settings.registries[registry]['value'])
+    print("ioioioioio")
+    print(value)
+    # value = value - act_val
     for _ in range(int(value)):
         add_to_output("INC " + registry)
 
@@ -43,9 +46,6 @@ def search_name_using_place_in_memory(place):
         if place == f[1]:   
             return f[0]
 
-
-
-
 #ok
 def find_free_memory():
     i = 0
@@ -55,16 +55,7 @@ def find_free_memory():
         else:
             i = i + 1
 
-def set_memory():
-# Store x oznacza zapisz to co jest w rejestrze a do komórki
-#  pamięci o numerze znajdującym się w rejestrze x
-# znajduje wolny r i wolna pamiec
-    r = find_free_registry()
-    set_registry_not_free(r)
-    free_m = find_free_memory()
-    set_registry_value(free_m, r)
-    set_registry_value(get_stack_top(), "a")
-    print("ej")
-    add_to_output("STORE "+str(r))
-    set_registry_free(r)
-#ok
+def get_stack_top():
+    top = settings.variables_stack[-1]
+    settings.variables_stack.pop()
+    return top
