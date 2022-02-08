@@ -1,6 +1,9 @@
 
-GET
 RESET b
+RESET a
+INC a
+INC a
+INC a
 STORE b
 RESET b
 LOAD b

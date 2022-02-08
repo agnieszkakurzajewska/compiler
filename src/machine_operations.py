@@ -13,6 +13,8 @@ def add_variable_to_stack(name):
 
 #READ x
 def read_input(): 
+    print("xxxxxxxxx")
+
     r = find_free_registry()
     name = get_stack_top() 
 
@@ -31,38 +33,52 @@ def read_input():
 
 #WRITE
 def write_output(): 
+    print("wwwwwwwwww")
+
     name = get_stack_top()
     place_in_memory = None
-    
+
     if is_variable_empty(name):
-        place_in_memory = search_place_in_memory_using_name(name)
+        place_in_memory = find_free_memory()
+        print("byla pusta")
     else:
-        print("error")
+        place_in_memory = search_place_in_memory_using_name(name)
+        print("nie byla pusta")
 
     r = get_register_which_contains_value(name)
     if r == False:
+        print("zodyn nimo")
         r = find_free_registry()
-        set_registry_value(r, place_in_memory)
-        
+
+    set_registry_value(r, place_in_memory)
     add_to_output("LOAD "+str(r))
     add_to_output("PUT")
     settings.registries[r] = {'value': name, 'free': True}
 
-
-
+#ASSIGN
 def assign(): 
     print("qqqqqq")
-    # 3 i n
     var_number = get_stack_top()
     var_name =  get_stack_top()
-    # print(search_variable_using_name(var_name)) 
-    set_or_match_registry_value(var_name) #zapisuje
-    # var_name = get_stack_top()
-    # set_registry_value("a", var_name)
-    # r = find_free_registry()
-    # set_or_match_registry_value(r, var_name)
-    # add_to_output("STORE "+str(r))
-    # set_registry_free(r)
+    print("Pod " + str(var_name) + " podpisuję liczbę " + str(var_number))
+    if is_variable_empty(var_name):
+        place_in_memory = find_free_memory()
+        print("byla pusta")
+    else:
+        place_in_memory = search_place_in_memory_using_name(var_name)
+        print("nie byla pusta")
+
+    r = get_register_which_contains_value(var_name)
+    if r == False:
+        r = find_free_registry()
+
+    set_registry_value(r, place_in_memory)
+    set_registry_value("a", var_number)
+
+    add_to_output("STORE "+str(r))
+    settings.registries[r] = {'value': var_name, 'free': True}
+    settings.variables.append((var_name, place_in_memory, True))
+
 
 def add():
     var1 = get_stack_top()
@@ -78,14 +94,6 @@ def add():
 
     # print(var1)
     # print(var2)
-
-def set_or_match_registry_value(var_name): #jesli zmienna juz jest zapisana w pamieci to ja nadpisz, inaczej znajdz wolna pamiec
-    memory_place = search_variable_using_name(var_name)
-    if memory_place != -1: 
-        set_registry_value(find_free_registry(), memory_place)
-    else:
-        set_registry_value(find_free_registry(), find_free_memory())
-
 
         
 

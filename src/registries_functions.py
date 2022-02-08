@@ -8,32 +8,34 @@ def is_variable_empty(name): #zwraca true jesli do zmiennej nie jest jeszcze prz
     return True
 
 def return_number(value):
-    if isinstance(value, int):
+    try:
         return int(value)
-    else:
+    except ValueError:
         return int(get_variables_value_using_name(value))
+        
 
 def get_variables_value_using_name(name):
     for v in settings.variables:
         if v[0] == name:
             return v[1]
     return False
-        
-
 
 def get_register_which_contains_value(name):
     for r in settings.registries:
         if str(settings.registries[r]['value']) == name:
             return r
-        else:
-            return False
+    return False
+
 
 def add_to_output(s):
     settings.output = settings.output + "\n" + s
 
 # TODO zoptymalizwoac zwiekszanie
 def set_registry_value(registry, value):
+    print("aaaaaa")
+    print(value)
     value = return_number(value) #zwraca zmienna albo jej wartosc
+    print(value)
     add_to_output("RESET " + registry)
     for _ in range(value):
         add_to_output("INC " + registry)
@@ -56,14 +58,11 @@ def get__using_var_name(var_name):
         if settings.registries[r]['name'] == var_name:
             return r
 
-#ok
 def search_place_in_memory_using_name(name):
     for f in settings.variables:
         if name == f[0]:   
             return f[1]
 
-
-#ok
 def find_free_memory():
     i = 0
     while True:
@@ -76,8 +75,6 @@ def get_stack_top():
     top = settings.variables_stack[-1]
     settings.variables_stack.pop()
     return top
-
-
 
 def add_to_output(s):
     settings.output = settings.output + "\n" + s
